@@ -9,13 +9,19 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>module_A</artifactId>
+	<artifactId>sm2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
 	<name>LearningProject</name>
 	<description>Learning project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
+
+	<modules>
+		<module>module_A</module>
+	</modules>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
