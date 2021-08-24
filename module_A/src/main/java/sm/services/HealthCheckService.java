@@ -3,7 +3,10 @@ package sm.services;
 import org.springframework.stereotype.Service;
 
 @Service
-public class HealthCheckImpl implements HealthCheck {
+public class HealthCheckService {
+
+    public HealthCheckService() {
+    }
 
     public boolean checkHealthStatus() {
         return true;
