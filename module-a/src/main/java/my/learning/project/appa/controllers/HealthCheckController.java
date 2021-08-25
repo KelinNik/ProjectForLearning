@@ -1,17 +1,19 @@
-package sm.controllers;
+package my.learning.project.appa.controllers;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import sm.services.HealthCheckService;
+import my.learning.project.appa.services.HealthCheckService;
 
 @Controller
 @Slf4j
 public class HealthCheckController {
 
-    @Autowired
-    private HealthCheckService healthCheckService;
+    private final HealthCheckService healthCheckService;
+
+    public HealthCheckController(HealthCheckService healthCheckService) {
+        this.healthCheckService = healthCheckService;
+    }
 
     @GetMapping("/healthcheck")
     public boolean getHealthCheck() {
