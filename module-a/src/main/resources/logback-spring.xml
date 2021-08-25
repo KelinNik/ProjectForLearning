@@ -1,0 +1,37 @@
+<configuration>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} %highlight([%-5level]) \(%thread\) %logger{36}: %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="async-console" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="console"/>
+    </appender>
+
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>app-a.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/app-a.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>1MB</maxFileSize>
+            <totalSizeCap>100MB</totalSizeCap>
+            <maxHistory>1</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} %highlight([%-5level]) \(%thread\) %logger{36}: %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="async-file" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="file"/>
+    </appender>
+
+    <logger level="debug" name="my.learning.project.appa"/>
+
+    <root level="info">
+        <appender-ref ref="async-file"/>
+        <appender-ref ref="async-console"/>
+    </root>
+</configuration>
