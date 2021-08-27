@@ -21,6 +21,7 @@ public class HealthCheckController {
     @GetMapping(value = "/healthcheckB", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody HealthCheckResponse getHealthCheck() {
         try {
+            log.info("Calling healthcheck method...");
             var status = healthCheckService.checkHealthStatus();
             log.info("Healthcheck status for module B is = {}", status);
             return new HealthCheckResponse(status);
