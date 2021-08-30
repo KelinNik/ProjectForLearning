@@ -28,7 +28,7 @@ public class HealthCheckController {
             log.info("Healthcheck status for module A is = {}", status);
             return new HealthCheckResponse(status);
         } catch (Exception e) {
-            log.error("Error from healthcheck service for A", e);
+            log.error("Error from healthcheck service", e);
             return new HealthCheckResponse(false);
         }
     }

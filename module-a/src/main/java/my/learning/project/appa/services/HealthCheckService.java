@@ -19,7 +19,6 @@ public class HealthCheckService {
     String baseUrl;
 
     public boolean checkHealthStatus() {
-        appBHealthCheckClient.getHChStatusFromModuleB();
-        return true;
+        return appBHealthCheckClient.getHChStatusFromModuleB();
     }
 }

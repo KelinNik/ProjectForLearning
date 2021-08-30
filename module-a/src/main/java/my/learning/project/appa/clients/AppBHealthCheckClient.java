@@ -23,9 +23,12 @@ public class AppBHealthCheckClient {
         RestTemplate restTemplate = new RestTemplate();
         try {
             HealthCheckStatus healthCheckStatus = restTemplate.getForObject(baseUrl + "healthcheckB", HealthCheckStatus.class);
-            return healthCheckStatus.status;
+            if (healthCheckStatus != null) {
+                return healthCheckStatus.status;
+            }
         } catch (Exception e) {
             log.error("Exception from module B", e);
+            return false;
         }
         return false;
     }
