@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class HealthCheckService {
 
-    private AppBHealthCheckClient appBHealthCheckClient;
+    private final AppBHealthCheckClient appBHealthCheckClient;
 
     public HealthCheckService(AppBHealthCheckClient appBHealthCheckClient) {
         this.appBHealthCheckClient = appBHealthCheckClient;

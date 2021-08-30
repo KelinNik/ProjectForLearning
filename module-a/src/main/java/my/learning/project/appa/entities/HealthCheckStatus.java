@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class HealthCheckStatus {
 
-    public boolean status;
+    private boolean status;
 }

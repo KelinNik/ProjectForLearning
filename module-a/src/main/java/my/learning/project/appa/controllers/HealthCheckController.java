@@ -22,9 +22,8 @@ public class HealthCheckController {
     public @ResponseBody
     HealthCheckResponse getHealthCheck() {
         try {
-            boolean status;
             log.info("Calling healthcheck method...");
-            status = healthCheckService.checkHealthStatus();
+            boolean status = healthCheckService.checkHealthStatus();
             log.info("Healthcheck status for module A is = {}", status);
             return new HealthCheckResponse(status);
         } catch (Exception e) {
