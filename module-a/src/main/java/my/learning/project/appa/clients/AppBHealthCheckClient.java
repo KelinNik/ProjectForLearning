@@ -4,11 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import my.learning.project.appa.entities.HealthCheckStatus;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Slf4j
 @Component
+@PropertySource("classpath:env.properties")
 public class AppBHealthCheckClient {
 
     @Value("${app.b.base.url}")

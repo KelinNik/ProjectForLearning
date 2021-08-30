@@ -24,7 +24,7 @@ public class HealthCheckController {
         try {
             log.info("Calling healthcheck method...");
             boolean status = healthCheckService.checkHealthStatus();
-            log.info("Healthcheck status for module A is = {}", status);
+            log.info("Healthcheck status is = {}", status);
             return new HealthCheckResponse(status);
         } catch (Exception e) {
             log.error("Error from healthcheck service", e);
