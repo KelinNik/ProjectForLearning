@@ -1,8 +1,8 @@
-package my.learning.project.appa.controllers;
+package my.learning.project.appb.controllers;
 
 import lombok.extern.slf4j.Slf4j;
-import my.learning.project.appa.entities.HealthCheckResponse;
-import my.learning.project.appa.services.HealthCheckService;
+import my.learning.project.appb.entities.HealthCheckResponse;
+import my.learning.project.appb.services.HealthCheckService;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,16 +18,15 @@ public class HealthCheckController {
         this.healthCheckService = healthCheckService;
     }
 
-    @GetMapping(value = "/healthcheck", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody
-    HealthCheckResponse getHealthCheck() {
+    @GetMapping(value = "/healthcheckB", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody HealthCheckResponse getHealthCheck() {
         try {
             log.info("Calling healthcheck method...");
-            boolean status = healthCheckService.checkHealthStatus();
-            log.info("Healthcheck status is = {}", status);
+            var status = healthCheckService.checkHealthStatus();
+            log.info("Healthcheck status for module B is = {}", status);
             return new HealthCheckResponse(status);
-        } catch (Exception e) {
-            log.error("Error from healthcheck service", e);
+        } catch (Exception ex) {
+            log.error("Error from healthcheck service for B", ex);
             return new HealthCheckResponse(false);
         }
     }
