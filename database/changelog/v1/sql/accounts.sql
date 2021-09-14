@@ -1,6 +1,6 @@
 create table if not exists account
 (
-    account_id  int generated always as identity,
+    account_id  serial primary key,
     first_name  varchar(128) not null,
     second_name varchar(128),
     is_active   bool,
@@ -8,5 +8,4 @@ create table if not exists account
     constraint acc_id unique (account_id)
 );
 
-insert into account(first_name, is_active)
-values ('John', true)
+create index if not exists account_index on account(account_id)
