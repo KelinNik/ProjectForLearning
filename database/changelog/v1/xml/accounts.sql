@@ -1,3 +1,5 @@
+--liquibase formatted sql
+--changeset Nick:1 splitStatements:true endDelimiter:;
 create table if not exists account
 (
     account_id  varchar(128) not null,
@@ -7,4 +9,4 @@ create table if not exists account
     constraint acc_id unique (account_id)
 );
 
-create index if not exists account_index on account(account_id)
+create index if not exists account_index on account(account_id);

@@ -26,11 +26,11 @@
                         <version>${org.liquibase.version}</version>
                         <configuration>
                             <propertyFile>liquibase.properties</propertyFile>
-                            <changeLogFile>changelog/v1/xml/changelog.xml</changeLogFile>
+                            <changeLogFile>changelog/v1/xml/accounts.sql</changeLogFile>
                         </configuration>
                         <executions>
                             <execution>
-                                <id>initial_setup</id>
+                                <id>v1</id>
                                 <phase>process-resources</phase>
                                 <goals>
                                     <goal>update</goal>
@@ -59,7 +59,7 @@
                         </configuration>
                         <executions>
                         <execution>
-                            <id>initial_setup</id>
+                            <id>v1</id>
                             <phase>process-resources</phase>
                             <goals>
                                 <goal>update</goal>
@@ -79,14 +79,8 @@
             <version>${org.liquibase.version}</version>
         </dependency>
         <dependency>
-            <groupId>sbrf.liquibase</groupId>
-            <artifactId>liquibase-sqlplus</artifactId>
-            <version>${org.liquibase.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
         </dependency>
     </dependencies>
 
