@@ -20,6 +20,7 @@
     <modules>
         <module>module-a</module>
         <module>module-b</module>
+        <module>database</module>
     </modules>
 
     <properties>
