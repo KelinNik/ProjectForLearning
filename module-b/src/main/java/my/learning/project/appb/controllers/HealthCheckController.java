@@ -19,14 +19,15 @@ public class HealthCheckController {
     }
 
     @GetMapping(value = "/healthcheckB", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody HealthCheckResponse getHealthCheck() {
+    public @ResponseBody
+    HealthCheckResponse getHealthCheckB() {
         try {
-            log.info("Calling healthcheck method...");
-            var status = healthCheckService.checkHealthStatus();
-            log.info("Healthcheck status for module B is = {}", status);
-            return new HealthCheckResponse(status);
+            log.debug("Вызов метода healthcheck...");
+            var accountsFromDB = healthCheckService.getAccountsFromDB();
+            log.debug("Для модуля В статус healthcheck = {}", accountsFromDB);
+            return new HealthCheckResponse(accountsFromDB);
         } catch (Exception ex) {
-            log.error("Error from healthcheck service for B", ex);
+            log.error("Ошибка из сервиса healthcheck для модуля B", ex);
             return new HealthCheckResponse(false);
         }
     }
