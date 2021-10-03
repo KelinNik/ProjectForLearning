@@ -1,8 +1,9 @@
-package my.learning.project.appb.model;
+package my.learning.project.appb.database.model;
 
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,13 +15,14 @@ import javax.validation.constraints.NotBlank;
 @Table(name = "account")
 @Getter
 @Setter
-public class Account {
+@Component
+public class AccountModel {
 
     @Column
     @Id
+    @NotBlank
     String accountId;
     @Column
-    @NotBlank
     String firstName;
     @Column
     String secondName;
