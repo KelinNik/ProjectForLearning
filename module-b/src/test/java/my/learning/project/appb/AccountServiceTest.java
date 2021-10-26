@@ -8,12 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
-import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.ConstraintViolationException;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @DisplayName("Тестирование CRUD Сервиса")
@@ -23,15 +21,13 @@ class AccountServiceTest {
     private AccountService accountService;
     @Autowired
     private AccountRepository accountRepository;
-    @Autowired
-    private Account account;
 
     @Test
     @Transactional
     @DisplayName("Успешное сохранение аккаунта")
     void checkCreateAccountPositive() {
-
         // Arrange
+        var account = new Account();
         account.setAccountId("111");
         account.setFirstName("FirstName");
         account.setSecondName("FamilyName");
@@ -40,17 +36,18 @@ class AccountServiceTest {
         var accountModel = accountService.createAccount(account);
 
         // Assert
-        assertEquals("111", accountRepository.getById(accountModel.getAccountId()).getAccountId());
-        assertEquals("FirstName", accountRepository.getById(accountModel.getAccountId()).getFirstName());
-        assertEquals("FamilyName", accountRepository.getById(accountModel.getAccountId()).getSecondName());
+        var founded = accountRepository.getById(accountModel.getAccountId());
+        assertEquals(account.getAccountId(), founded.getAccountId());
+        assertEquals(account.getFirstName(), founded.getFirstName());
+        assertEquals(account.getSecondName(), founded.getSecondName());
     }
 
     @Test
     @Transactional
     @DisplayName("Успешное получение аккаунта")
     void checkGetAccountPositive() {
-
         // Arrange
+        var account = new Account();
         account.setAccountId("FF");
         account.setFirstName("FirstName");
         account.setSecondName("FamilyName");
@@ -59,87 +56,47 @@ class AccountServiceTest {
         // Act
         var ff = accountRepository.getById("FF");
         // Assert
-        assertEquals("FF", accountRepository.getById(ff.getAccountId()).getAccountId());
-        assertEquals("FirstName", accountRepository.getById(ff.getAccountId()).getFirstName());
-        assertEquals("FamilyName", accountRepository.getById(ff.getAccountId()).getSecondName());
+        assertEquals(account.getAccountId(), accountRepository.getById(ff.getAccountId()).getAccountId());
+        assertEquals(account.getFirstName(), accountRepository.getById(ff.getAccountId()).getFirstName());
+        assertEquals(account.getSecondName(), accountRepository.getById(ff.getAccountId()).getSecondName());
     }
 
     @Test
     @Transactional
     @DisplayName("Успешное обновление аккаунта")
     void checkUpdateAccountPositive() {
-
         // Arrange
+        var account = new Account();
         account.setAccountId("FF1");
         account.setFirstName("FirstName");
         account.setSecondName("FamilyName");
-        var accountModel = accountService.createAccount(account);
 
         // Act
-        accountRepository.getById("FF1").setFirstName("UpdatedName");
-        accountRepository.getById("FF1").setSecondName("UpdatedFName");
+        accountService.createAccount(account);
+        account.setSecondName("upd");
+        var accountModel = accountService.createAccount(account);
 
         // Assert
-        assertEquals("FF1", accountRepository.getById(accountModel.getAccountId()).getAccountId());
-        assertEquals("UpdatedName", accountRepository.getById(accountModel.getAccountId()).getFirstName());
-        assertEquals("UpdatedFName", accountRepository.getById(accountModel.getAccountId()).getSecondName());
+        assertEquals(account.getAccountId(), accountModel.getAccountId());
+        assertEquals(account.getFirstName(), accountModel.getFirstName());
+        assertEquals(account.getSecondName(), accountModel.getSecondName());
     }
 
     @Test
     @Transactional
     @DisplayName("Успешное удаление аккаунта")
     void checkDeleteAccountPositive() {
-
         // Arrange
+        var account = new Account();
         account.setAccountId("FF2");
-        account.setFirstName("FirstName");
-        account.setSecondName("FamilyName");
+        account.setFirstName("fn");
         var accountModel = accountService.createAccount(account);
         var accountId = accountModel.getAccountId();
-
-        // Assert
-        assertNotNull(accountId);
-        assertEquals("FF2", accountRepository.getById(accountId).getAccountId());
-        assertEquals("FirstName", accountRepository.getById(accountId).getFirstName());
-        assertEquals("FamilyName", accountRepository.getById(accountId).getSecondName());
 
         // Act
         accountRepository.deleteById(accountId);
 
         // Assert
         assertThrows(JpaObjectRetrievalFailureException.class, () -> accountRepository.getById(accountId));
-    }
-
-    @Test
-    @Transactional
-    @DisplayName("Ошибка при сохранении аккаунта")
-    void checkCreateAccountNegative() {
-
-        // Arrange
-        account.setAccountId(null);
-        account.setFirstName("FirstName");
-        account.setSecondName("FamilyName");
-
-        // Act
-        // Assert
-        assertThrows(JpaSystemException.class, () -> accountService.createAccount(this.account));
-
-        // Arrange
-        account.setAccountId("");
-        account.setFirstName("FirstName");
-        account.setSecondName("FamilyName");
-
-        // Act
-        // Assert
-        assertThrows(ConstraintViolationException.class, () -> accountService.createAccount(this.account));
-
-        // Arrange
-        account.setAccountId(" ");
-        account.setFirstName("FirstName");
-        account.setSecondName("FamilyName");
-
-        // Act
-        // Assert
-        assertThrows(ConstraintViolationException.class, () -> accountService.createAccount(this.account));
     }
 }

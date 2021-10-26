@@ -1,6 +1,5 @@
 package my.learning.project.appb.database.model;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -21,9 +20,9 @@ public class AccountModel {
     @Column
     @Id
     @NotBlank
-    String accountId;
+    private String accountId;
     @Column
-    String firstName;
+    private String firstName;
     @Column
-    String secondName;
+    private String secondName;
 }

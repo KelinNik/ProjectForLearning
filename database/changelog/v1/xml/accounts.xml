@@ -11,7 +11,7 @@
     </preConditions>
 
     <changeSet id="1" author="Nick">
-        <createTable tableName="accountModel">
+        <createTable tableName="account">
             <column name="account_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false" unique="true"/>
             </column>
@@ -21,7 +21,7 @@
             <column name="last_name" type="varchar(128)"/>
             <column name="is_active" type="bool"/>
         </createTable>
-        <createIndex tableName="accountModel" indexName="account_index">
+        <createIndex tableName="account" indexName="account_index">
             <column name="account_id"/>
         </createIndex>
     </changeSet>

@@ -1,6 +1,5 @@
 package my.learning.project.appb.exceptions;
 
-import com.google.common.collect.ImmutableMap;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.stereotype.Component;
@@ -12,11 +11,10 @@ import java.util.UUID;
 @Component
 public class CustomExceptionHandler extends DefaultErrorAttributes {
 
-    private static final Map<String, String> STATUS_MESSAGE_MAP = ImmutableMap.<String, String>builder()
-            .put("400", "Ошибка пользовательского запроса")
-            .put("404", "Адрес не существует")
-            .put("500", "Аккаунт не найден")
-            .build();
+    private static final Map<String, String> STATUS_MESSAGE_MAP = Map.of(
+            "400", "Ошибка пользовательского запроса",
+            "404", "Адрес не существует",
+            "500", "Аккаунт не найден");
 
     @Override
     public Map<String, Object> getErrorAttributes(
