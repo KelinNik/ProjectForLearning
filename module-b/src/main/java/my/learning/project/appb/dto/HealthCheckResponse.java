@@ -1,4 +1,4 @@
-package my.learning.project.appb.entities;
+package my.learning.project.appb.dto;
 
 import lombok.Data;
 

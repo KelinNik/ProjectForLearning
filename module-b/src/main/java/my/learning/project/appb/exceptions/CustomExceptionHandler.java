@@ -1,32 +1,46 @@
 package my.learning.project.appb.exceptions;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.boot.web.error.ErrorAttributeOptions;
+import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.WebRequest;
 
-@ControllerAdvice
-public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
+import java.util.Map;
+import java.util.UUID;
 
-    @ExceptionHandler(ThereIsNoSuchUserException.class)
-    public ResponseEntity<ErrorMessage> handleThereIsNoSuchUserException() {
-        return new ResponseEntity<>(new ErrorMessage(false, "Аккаунт не найден"),
-                HttpStatus.NOT_FOUND);
-    }
+@Component
+public class CustomExceptionHandler extends DefaultErrorAttributes {
 
-    @ExceptionHandler(EmptyAccountListException.class)
-    public ResponseEntity<ErrorMessage> handleEmptyAccountListException() {
-        return new ResponseEntity<>(new ErrorMessage(false, "Ни один аккаунт не найден"),
-                HttpStatus.I_AM_A_TEAPOT);
-    }
+    private static final Map<String, String> STATUS_MESSAGE_MAP = Map.of(
+            "400", "Ошибка пользовательского запроса",
+            "404", "Адрес не существует",
+            "500", "Аккаунт не найден");
 
-    @Data
-    @AllArgsConstructor
-    private static class ErrorMessage {
-        private Boolean success;
-        private String message;
+    @Override
+    public Map<String, Object> getErrorAttributes(
+            WebRequest webRequest, ErrorAttributeOptions options) {
+
+        Map<String, Object> errorAttributes = super.getErrorAttributes(webRequest, options);
+
+        String errorMessage;
+        switch (errorAttributes.get("status").toString()) {
+            case "500":
+                errorMessage = STATUS_MESSAGE_MAP.get("500");
+                break;
+            case "400":
+                errorMessage = STATUS_MESSAGE_MAP.get("400");
+                break;
+            case "404":
+                errorMessage = STATUS_MESSAGE_MAP.get("404");
+                break;
+            default:
+                errorMessage = "";
+        }
+
+        errorAttributes.remove("path");
+        errorAttributes.put("UUID", UUID.randomUUID());
+        errorAttributes.put("errorMessage", errorMessage);
+
+        return errorAttributes;
     }
 }

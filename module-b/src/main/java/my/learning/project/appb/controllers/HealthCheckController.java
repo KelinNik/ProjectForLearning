@@ -1,7 +1,7 @@
 package my.learning.project.appb.controllers;
 
 import lombok.extern.slf4j.Slf4j;
-import my.learning.project.appb.entities.HealthCheckResponse;
+import my.learning.project.appb.dto.HealthCheckResponse;
 import my.learning.project.appb.services.HealthCheckService;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;

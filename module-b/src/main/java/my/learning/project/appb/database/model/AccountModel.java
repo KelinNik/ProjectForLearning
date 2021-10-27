@@ -1,5 +1,4 @@
-package my.learning.project.appb.model;
-
+package my.learning.project.appb.database.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,14 +13,14 @@ import javax.validation.constraints.NotBlank;
 @Table(name = "account")
 @Getter
 @Setter
-public class Account {
+public class AccountModel {
 
     @Column
     @Id
-    String accountId;
-    @Column
     @NotBlank
-    String firstName;
+    private String accountId;
     @Column
-    String secondName;
+    private String firstName;
+    @Column
+    private String secondName;
 }
