@@ -30,12 +30,12 @@ public class AccountController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public AccountModel createAccount(@RequestBody @Valid Account account) {
-        return accountService.createAccount(account);
+        return accountService.save(account);
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public AccountModel updateAccount(@RequestBody @Valid Account account) {
-        return accountService.createAccount(account);
+        return accountService.save(account);
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

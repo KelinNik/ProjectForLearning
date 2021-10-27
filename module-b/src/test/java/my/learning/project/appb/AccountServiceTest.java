@@ -33,7 +33,7 @@ class AccountServiceTest {
         account.setSecondName("FamilyName");
 
         // Act
-        var accountModel = accountService.createAccount(account);
+        var accountModel = accountService.save(account);
 
         // Assert
         var founded = accountRepository.getById(accountModel.getAccountId());
@@ -51,7 +51,7 @@ class AccountServiceTest {
         account.setAccountId("FF");
         account.setFirstName("FirstName");
         account.setSecondName("FamilyName");
-        accountService.createAccount(account);
+        accountService.save(account);
 
         // Act
         var ff = accountRepository.getById("FF");
@@ -72,9 +72,9 @@ class AccountServiceTest {
         account.setSecondName("FamilyName");
 
         // Act
-        accountService.createAccount(account);
+        accountService.save(account);
         account.setSecondName("upd");
-        var accountModel = accountService.createAccount(account);
+        var accountModel = accountService.save(account);
 
         // Assert
         assertEquals(account.getAccountId(), accountModel.getAccountId());
@@ -90,7 +90,7 @@ class AccountServiceTest {
         var account = new Account();
         account.setAccountId("FF2");
         account.setFirstName("fn");
-        var accountModel = accountService.createAccount(account);
+        var accountModel = accountService.save(account);
         var accountId = accountModel.getAccountId();
 
         // Act

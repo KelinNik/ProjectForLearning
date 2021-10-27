@@ -5,6 +5,7 @@ import my.learning.project.appb.database.model.AccountModel;
 import my.learning.project.appb.dto.Account;
 import my.learning.project.appb.mapper.AccountMapper;
 import my.learning.project.appb.repo.AccountRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +27,7 @@ public class AccountService {
     }
 
     @Transactional
-    public AccountModel createAccount(Account account) {
+    public AccountModel save(Account account) {
         log.debug("Сохранение аккаунта {}, {}", account.getAccountId(), account.getFirstName());
         var accountModel = accountMapper.mapToModel(account);
         accountRepository.saveAndFlush(accountModel);
@@ -37,8 +38,8 @@ public class AccountService {
         log.debug("Удаление аккаунта по id {}", id);
         try {
             accountRepository.deleteById(id);
-        } catch (Exception ignored) {
-            log.error("Удаление аккаунта по {} не выполнено", id);
+        } catch (EmptyResultDataAccessException ignored) {
+            log.warn("Удаление аккаунта по {} не выполнено", id);
         }
     }
 }
