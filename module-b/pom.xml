@@ -77,6 +77,16 @@
             <artifactId>guava</artifactId>
             <version>31.0.1-jre</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.4.20.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <version>5.4.20.Final</version>
+        </dependency>
 
     </dependencies>
 

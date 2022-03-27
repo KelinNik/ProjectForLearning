@@ -28,7 +28,7 @@ class AccountServiceTest {
     void checkCreateAccountPositive() {
         // Arrange
         var account = new Account();
-        account.setAccountId("111");
+        account.setAccountId(123456765L);
         account.setFirstName("FirstName");
         account.setSecondName("FamilyName");
 
@@ -48,13 +48,13 @@ class AccountServiceTest {
     void checkGetAccountPositive() {
         // Arrange
         var account = new Account();
-        account.setAccountId("FF");
+        account.setAccountId(123L);
         account.setFirstName("FirstName");
         account.setSecondName("FamilyName");
         accountService.save(account);
 
         // Act
-        var ff = accountRepository.getById("FF");
+        var ff = accountRepository.getById(123L);
         // Assert
         assertEquals(account.getAccountId(), accountRepository.getById(ff.getAccountId()).getAccountId());
         assertEquals(account.getFirstName(), accountRepository.getById(ff.getAccountId()).getFirstName());
@@ -67,7 +67,7 @@ class AccountServiceTest {
     void checkUpdateAccountPositive() {
         // Arrange
         var account = new Account();
-        account.setAccountId("FF1");
+        account.setAccountId(1234567L);
         account.setFirstName("FirstName");
         account.setSecondName("FamilyName");
 
@@ -88,7 +88,7 @@ class AccountServiceTest {
     void checkDeleteAccountPositive() {
         // Arrange
         var account = new Account();
-        account.setAccountId("FF2");
+        account.setAccountId(12345L);
         account.setFirstName("fn");
         var accountModel = accountService.save(account);
         var accountId = accountModel.getAccountId();

@@ -1,11 +1,9 @@
-package my.learning.project.appb.dto;
+package my.learning.project.appa.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 @Data
 @Component
@@ -13,8 +11,7 @@ import javax.validation.Valid;
 @NoArgsConstructor
 public class Account {
 
-    @Valid
-    private Long accountId;
+    private String accountId;
     private String firstName;
     private String secondName;
 }

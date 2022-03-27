@@ -21,7 +21,7 @@ public class AccountService {
         this.accountMapper = accountMapper;
     }
 
-    public Account getAccountById(String id) {
+    public Account getAccountById(Long id) {
         log.debug("Получение аккаунта по id = {}", id);
         return accountMapper.mapToAccount(accountRepository.findById(id).orElseThrow());
     }
@@ -34,7 +34,7 @@ public class AccountService {
         return accountModel;
     }
 
-    public void deleteAccountById(String id) {
+    public void deleteAccountById(Long id) {
         log.debug("Удаление аккаунта по id {}", id);
         try {
             accountRepository.deleteById(id);

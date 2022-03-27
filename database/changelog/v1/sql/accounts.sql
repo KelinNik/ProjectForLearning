@@ -2,7 +2,7 @@
 --changeset Nick:1 splitStatements:true endDelimiter:;
 create table if not exists account
 (
-    account_id  varchar(128) not null,
+    account_id  bigint not null,
     first_name  varchar(128) not null,
     second_name varchar(128),
 
