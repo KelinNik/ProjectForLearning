@@ -16,7 +16,7 @@ public class AccountClient {
 
     RestTemplate template = new RestTemplate();
 
-    public Account getBuId(String id) {
+    public Account getBuId(Long id) {
         return template.getForObject(baseUrl +"account/"+ id, Account.class);
     }
 
@@ -25,5 +25,9 @@ public class AccountClient {
         headers.setContentType(MediaType.APPLICATION_JSON);
         var request = new HttpEntity<>(account, headers);
         template.postForObject(baseUrl + "account", request, Account.class);
+    }
+
+    public void delete(Long id){
+        template.delete(baseUrl + "account/" + id, Boolean.class);
     }
 }

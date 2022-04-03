@@ -22,24 +22,24 @@ public class AccountService {
     }
 
     public Account getAccountById(Long id) {
-        log.debug("Получение аккаунта по id = {}", id);
+        log.debug("Getting account by id = {}", id);
         return accountMapper.mapToAccount(accountRepository.findById(id).orElseThrow());
     }
 
     @Transactional
     public AccountModel save(Account account) {
-        log.debug("Сохранение аккаунта {}, {}", account.getAccountId(), account.getFirstName());
+        log.debug("Saving account {}, {}", account.getAccountId(), account.getFirstName());
         var accountModel = accountMapper.mapToModel(account);
         accountRepository.saveAndFlush(accountModel);
         return accountModel;
     }
 
     public void deleteAccountById(Long id) {
-        log.debug("Удаление аккаунта по id {}", id);
+        log.debug("Deleting account by id {}", id);
         try {
             accountRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ignored) {
-            log.warn("Удаление аккаунта по {} не выполнено", id);
+            log.warn("Deleting account by id {} wasn't done", id);
         }
     }
 }

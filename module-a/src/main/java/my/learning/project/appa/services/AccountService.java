@@ -13,7 +13,7 @@ public class AccountService {
         this.client = client;
     }
 
-    public Account getAccountById(String id) {
+    public Account getAccountById(Long id) {
         var account = client.getBuId(id);
         return account;
     }
@@ -22,6 +22,7 @@ public class AccountService {
         client.save(account);
     }
 
-    public void deleteAccountById(String id) {
+    public void deleteAccountById(Long id) {
+        client.delete(id);
     }
 }

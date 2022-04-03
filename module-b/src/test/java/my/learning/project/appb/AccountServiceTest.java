@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -28,7 +30,7 @@ class AccountServiceTest {
     void checkCreateAccountPositive() {
         // Arrange
         var account = new Account();
-        account.setAccountId(123456765L);
+        account.setAccountId(new Random().longs(1, 999999999).findFirst().getAsLong());
         account.setFirstName("FirstName");
         account.setSecondName("FamilyName");
 
@@ -48,13 +50,14 @@ class AccountServiceTest {
     void checkGetAccountPositive() {
         // Arrange
         var account = new Account();
-        account.setAccountId(123L);
+        var id =   new Random().longs(1, 999999999).findFirst().getAsLong();
+        account.setAccountId(id);
         account.setFirstName("FirstName");
         account.setSecondName("FamilyName");
         accountService.save(account);
 
         // Act
-        var ff = accountRepository.getById(123L);
+        var ff = accountRepository.getById(id);
         // Assert
         assertEquals(account.getAccountId(), accountRepository.getById(ff.getAccountId()).getAccountId());
         assertEquals(account.getFirstName(), accountRepository.getById(ff.getAccountId()).getFirstName());
@@ -67,7 +70,7 @@ class AccountServiceTest {
     void checkUpdateAccountPositive() {
         // Arrange
         var account = new Account();
-        account.setAccountId(1234567L);
+        account.setAccountId(new Random().longs(1, 999999999).findFirst().getAsLong());
         account.setFirstName("FirstName");
         account.setSecondName("FamilyName");
 
@@ -88,7 +91,7 @@ class AccountServiceTest {
     void checkDeleteAccountPositive() {
         // Arrange
         var account = new Account();
-        account.setAccountId(12345L);
+        account.setAccountId(new Random().longs(1, 999999999).findFirst().getAsLong());
         account.setFirstName("fn");
         var accountModel = accountService.save(account);
         var accountId = accountModel.getAccountId();
@@ -98,5 +101,13 @@ class AccountServiceTest {
 
         // Assert
         assertThrows(JpaObjectRetrievalFailureException.class, () -> accountRepository.getById(accountId));
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("НЕ успешное удаление аккаунта")
+    void checkDeleteAccountNegative() {
+        // Act -> Assert
+       assertThrows(Exception.class, () -> accountRepository.deleteById(123L));
     }
 }
