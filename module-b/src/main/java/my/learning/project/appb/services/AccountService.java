@@ -9,6 +9,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class AccountService {
@@ -41,5 +43,10 @@ public class AccountService {
         } catch (EmptyResultDataAccessException ignored) {
             log.warn("Удаление аккаунта по {} не выполнено", id);
         }
+    }
+
+    public List<AccountModel> getAllAccounts() {
+        log.debug("Получение всех аккаунтов");
+        return accountRepository.findAllBy();
     }
 }

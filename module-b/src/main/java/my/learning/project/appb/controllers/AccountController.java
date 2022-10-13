@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -26,6 +27,11 @@ public class AccountController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Account getAccount(@PathVariable @NotBlank String id) {
         return accountService.getAccountById(id);
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<AccountModel> getAccounts(){
+        return accountService.getAllAccounts();
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
